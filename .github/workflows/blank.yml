@@ -22,7 +22,15 @@ jobs:
       run: npm install
 
     - name: Build website
-      run: npm run build
+      run: |
+        npm run build 2>&1 | tee build.log
+        EXIT_CODE=$?
+        echo "Exit code: $EXIT_CODE"
+        cat build.log
+        if [ $EXIT_CODE -ne 0 ]; then
+          echo "Compile failed with exit code $EXIT_CODE"
+          exit $EXIT_CODE
+        fi
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v2
