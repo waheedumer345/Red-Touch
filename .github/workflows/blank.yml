@@ -36,8 +36,8 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: build-artifacts
-        path: /home/redtouch/repositories/Red-Touch
+        path: /home/redtouch/repositories/Red-Touch 
 
     - name: Deploy to Hosting Service
       run: |
-        # Add deployment commands specific to cPanel or your hosting service here
+  
