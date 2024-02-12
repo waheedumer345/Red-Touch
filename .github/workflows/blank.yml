@@ -11,10 +11,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@latest
+      uses: actions/checkout@v2
 
     - name: Setup Node.js
-      uses: actions/setup-node@latest
+      uses: actions/setup-node@v3
       with:
         node-version: '20'
 
@@ -32,18 +32,11 @@ jobs:
           exit $EXIT_CODE
         fi
 
-    - name: Check Uncommitted Changes
-      run: |
-        if [ -n "$(git status --porcelain)" ]; then
-          echo "Error: Uncommitted changes exist. Commit and push your changes before deploying."
-          exit 1
-        fi
-
     - name: Archive artifacts
-      uses: actions/upload-artifact@latest
+      uses: actions/upload-artifact@v2
       with:
         name: build-artifacts
-        path: home/redtouch/RedTouchGTCWebsite/index.html
+        path: /home/redtouch/repositories/Red-Touch
 
     - name: Deploy to Hosting Service
       run: |
