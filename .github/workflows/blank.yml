@@ -18,10 +18,30 @@ jobs:
       with:
         node-version: '20'
 
+    - name:name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@latest
+
+    - name: Setup Node.js
+      uses: actions/setup-node@latest
+      with:
+        node-version: '20'
+
     - name: Install dependencies
       run: npm ci
 
-    - name: Compile
+    - name: Build website
       run: |
         npm run build 2>&1 | tee build.log
         EXIT_CODE=$?
@@ -33,7 +53,7 @@ jobs:
         fi
 
     - name: Archive artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@latest
       with:
         name: build-artifacts
         path: home/redtouch/RedTouchGTCWebsite/index.html
