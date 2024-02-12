@@ -11,26 +11,6 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-
-    - name:name: Build and Deploy
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
       uses: actions/checkout@latest
 
     - name: Setup Node.js
@@ -52,6 +32,13 @@ jobs:
           exit $EXIT_CODE
         fi
 
+    - name: Check Uncommitted Changes
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "Error: Uncommitted changes exist. Commit and push your changes before deploying."
+          exit 1
+        fi
+
     - name: Archive artifacts
       uses: actions/upload-artifact@latest
       with:
@@ -60,4 +47,4 @@ jobs:
 
     - name: Deploy to Hosting Service
       run: |
-        echo "Implement your deployment step here"
+        # Add deployment commands specific to cPanel or your hosting service here
