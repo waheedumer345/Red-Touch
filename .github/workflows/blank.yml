@@ -19,7 +19,7 @@ jobs:
         node-version: '20'
 
     - name: Install dependencies
-      run: npm install
+      run: npm ci
 
     - name: Build website
       run: |
@@ -36,4 +36,8 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: build-artifacts
-        path: github/workflows/blank.yml
+        path: home/redtouch/RedTouchGTCWebsite/index.html
+
+    - name: Deploy to Hosting Service
+      run: |
+        echo "Implement your deployment step here"
